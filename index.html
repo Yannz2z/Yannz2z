@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Yannz2z</title>
+
+  <style>
+  body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 20px;
+  color: white;
+  background: transparent;
+  position: relative;
+  z-index: 1;
+}
+    
+
+    /* === TEKS RGB === */
+    .rgb-text {
+      font-size: 25px;
+      font-weight: bold;
+      background: linear-gradient(
+        270deg,
+        black,
+        white,
+        black,
+        black,
+        black,
+        black,
+        black,
+        white
+      );
+      background-size: 400% 400%;
+      color: transparent;
+      background-clip: text;
+      -webkit-background-clip: text;
+      animation: rgb 3s linear infinite;
+    }
+
+    @keyframes rgb {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    p {
+      font-size: 15px;
+      color: white;
+    }
+
+    img {
+      width: 120px;
+      margin: 12px 0;
+      border-radius: 10px;
+    }
+
+    .download-btn {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 14px 28px;
+      background-color: #000066;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+
+    .download-btn:hover {
+      background-color: #d30000;
+      transform: scale(1.05);
+    }
+
+    footer {
+      margin-top: 60px;
+      padding: 20px;
+      background-color: #111;
+      color: white;
+    }
+
+    footer a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+      color: #ff4d4d;
+    }
+    html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+.video-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -10;
+  pointer-events: none;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  z-index: -5;
+}
+.section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.next-btn {
+  margin-top: 40px;
+  padding: 12px 25px;
+  background: #00ccff;
+  color: black;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.next-btn:hover {
+  background: #ff00ff;
+  color: white;
+}
+  </style>
+</head>
+<script>
+  document.addEventListener("click", function () {
+    const music = document.getElementById("bg-music");
+    music.muted = false;
+    music.play();
+  });
+</script>
+<script>
+function goSlide2() {
+  document.getElementById("slide2").scrollIntoView({behavior: "smooth"});
+}
+
+function goSlide1() {
+  document.getElementById("slide1").scrollIntoView({behavior: "smooth"});
+}
+</script>
+<body>
+
+<video class="video-bg" autoplay muted loop playsinline>
+  <source src="2.mp4" type="video/mp4">
+</video>
+<div class="overlay"></div>
+
+<audio id="bg-music" autoplay loop muted>
+  <source src="testt.mp3" type="audio/mpeg">
+</audio>
+<!-- ===== SLIDE 1 ===== -->
+<section class="section" id="slide1">
+
+  <h1 class="rgb-text"><i>Hi Ganteng, Hi Imut</i></h1>
+  <p><b>🗿</b></p>
+
+  <img src="foto.jpg" alt="Foto">
+
+  <p>Untuk link download ada di bawah ini yaa</p>
+
+  <!-- CAPTCHA -->
+  <div id="captcha-container" style="margin:20px 0;">
+    <p id="captcha-text" style="font-size:20px; font-weight:bold; color: white;opacity: 0.05 ;"></p>
+   <span style="color: purple;"><input type="text" id="captcha-input" placeholder="Type The Code Above">
+    <button id="captcha-btn"><span<b><span style="color: purple;">Verifikasi</button>
+    <p id="captcha-msg"></p>
+  </div>
+
+  <br><span class="rgb-text">ᵥ</span>
+
+  <!-- Tombol DOWNLOAD -->
+  <a class="download-btn" href="https://www.mediafire.com/file/shvqhw6l5a8wk86/pvp-boy-cool-dark.mcpack/file" target="_blank">
+    DOWNLOAD
+  </a>
+
+  <div class="next-btn" onclick="goSlide2()"> next</div>
+
+</section>
+
+<!-- Script CAPTCHA + tombol terkunci -->
+<script>
+  // Tombol download awalnya mati
+  const downloadBtn = document.querySelector('.download-btn');
+  downloadBtn.style.pointerEvents = 'none';
+  downloadBtn.style.opacity = '0.1';
+
+  // Fungsi generate CAPTCHA acak
+  function generateCaptcha() {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789Π‹›<>»«⟨⁰⁷¹²⁰⟩¹★~`|•√π÷×§∆\}][{=✓°™^®¥©€%¢£#';
+    let code = '';
+    for (let i = 0; i < 5; i++) {
+      code += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return code;
+  }
+
+  let captchaCode = generateCaptcha();
+  document.getElementById('captcha-text').innerText = captchaCode;
+
+  // Tombol verifikasi
+  document.getElementById('captcha-btn').addEventListener('click', function() {
+    const userInput = document.getElementById('captcha-input').value.toUpperCase();
+    const msg = document.getElementById('captcha-msg');
+
+    if(userInput === captchaCode) {
+      msg.style.color = 'green';
+      msg.innerText = 'Verification Succesfully! ';
+      
+      // Aktifkan tombol download
+      downloadBtn.style.pointerEvents = 'auto';
+      downloadBtn.style.opacity = '1';
+    } else {
+      msg.style.color = 'red';
+      msg.innerText = 'Incorrect Code, Please Try Again.';
+      captchaCode = generateCaptcha(); // kode baru
+      document.getElementById('captcha-text').innerText = captchaCode;
+      document.getElementById('captcha-input').value = ''; // reset input
+    }
+  });
+</script>
+
+  </a>
+
+</section>
+<!-- ===== SLIDE 2 ===== -->
+<section class="section" id="slide2">
+
+  <h1 class="rgb-text">#1</h1>
+  <p></p>
+
+  <p>
+     gogogok:
+    <br>• Sabar
+    <br>• Sabar
+    <br>• Sabar
+  </p>
+
+  <div class="next-btn" onclick="goSlide1()"> Kembali </div>
+
+</section>
+
+  <!-- <<< RGB -->
+  <span class="rgb-text"> ›››</span>
+
+  <footer>
+    <h2 class="rgb-text">:V</h2>
+    <p>Keren dan elegan adalah ciri dari Yann yang tampan dan pemberani.</p>
+
+    <p>
+      <a href="#">Home</a> | 
+      <a href="#">About</a> | 
+      <a href="#">Services</a> | 
+      <a href="https://wa.me/6285282426298" target="_blank">💬 Chat WhatsApp</a>
+    </p>
+
+    <p>© 2026 Yannz2z.</p>
+  </footer>
+
+</body>
+</html>
